@@ -1,17 +1,19 @@
 package edu.mum.cs525.framework;
 
+import java.time.LocalDateTime;
+
 public class Transaction {
 	
 	private double amount;
 	private String description;
-	
-	// TODO: Date, fromAccount, toAccount, etc
+	private LocalDateTime date;
 	
 	public Transaction() { }
 	
 	public Transaction(double amount, String description) {
 		this.amount = amount;
 		this.description = description;
+		this.date = LocalDateTime.now();
 	}
 
 	public double getAmount() {
@@ -30,4 +32,11 @@ public class Transaction {
 		this.description = description;
 	}
 	
+	public LocalDateTime getDate() {
+		return date;
+	}
+	
+	public void setDate(LocalDateTime date) {
+		this.date = date;
+	}
 }
