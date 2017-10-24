@@ -28,8 +28,8 @@ public class BankFrm extends javax.swing.JFrame
 
 		setTitle("Bank Application.");
 		setDefaultCloseOperation(javax.swing.JFrame.DO_NOTHING_ON_CLOSE);
-		getContentPane().setLayout(new BorderLayout(0,0));
-		setSize(575,310);
+		getContentPane().setLayout(new BorderLayout(0, 0));
+		setSize(575, 310);
 		setVisible(false);
 		JPanel1.setLayout(null);
 		getContentPane().add(BorderLayout.CENTER, JPanel1);
@@ -53,27 +53,34 @@ public class BankFrm extends javax.swing.JFrame
         
         
         JPanel1.add(JScrollPane1);
-        JScrollPane1.setBounds(12,92,444,160);
+        JScrollPane1.setBounds(12, 92, 444, 160);
         JScrollPane1.getViewport().add(JTable1);
         JTable1.setBounds(0, 0, 420, 0);
 //        rowdata = new Object[8];
 		
 		JButton_PerAC.setText("Add personal account");
 		JPanel1.add(JButton_PerAC);
-		JButton_PerAC.setBounds(24,20,192,33);
+		JButton_PerAC.setBounds(24, 20, 192, 33);
 		JButton_CompAC.setText("Add company account");
 		JButton_CompAC.setActionCommand("jbutton");
 		JPanel1.add(JButton_CompAC);
-		JButton_CompAC.setBounds(240,20,192,33);
+		JButton_CompAC.setBounds(240, 20, 192, 33);
+
 		JButton_Deposit.setText("Deposit");
 		JPanel1.add(JButton_Deposit);
-		JButton_Deposit.setBounds(468,104,96,33);
+		JButton_Deposit.setBounds(468, 104, 96, 33);
+
 		JButton_Withdraw.setText("Withdraw");
 		JPanel1.add(JButton_Withdraw);
-		JButton_Addinterest.setBounds(448,20,106,33);
+		JButton_Withdraw.setBounds(468, 164, 96, 33);
+
+		JButton_GetReport.setText("Get Report");
+		JPanel1.add(JButton_GetReport);
+		JButton_GetReport.setBounds(468, 204, 96, 33);
+
+		JButton_Addinterest.setBounds(448, 20, 106, 33);
 		JButton_Addinterest.setText("Add interest");
 		JPanel1.add(JButton_Addinterest);
-		JButton_Withdraw.setBounds(468,164,96,33);
 		JButton_Exit.setText("Exit");
 		JPanel1.add(JButton_Exit);
 		JButton_Exit.setBounds(468,248,96,31);
@@ -91,6 +98,7 @@ public class BankFrm extends javax.swing.JFrame
 		JButton_CompAC.addActionListener(lSymAction);
 		JButton_Deposit.addActionListener(lSymAction);
 		JButton_Withdraw.addActionListener(lSymAction);
+		JButton_GetReport.addActionListener(lSymAction);
 		JButton_Addinterest.addActionListener(lSymAction);
 		
 	}
@@ -129,6 +137,7 @@ public class BankFrm extends javax.swing.JFrame
 	javax.swing.JButton JButton_CompAC = new javax.swing.JButton();
 	javax.swing.JButton JButton_Deposit = new javax.swing.JButton();
 	javax.swing.JButton JButton_Withdraw = new javax.swing.JButton();
+	javax.swing.JButton JButton_GetReport = new javax.swing.JButton();
 	javax.swing.JButton JButton_Addinterest= new javax.swing.JButton();
 	javax.swing.JButton JButton_Exit = new javax.swing.JButton();
 
@@ -181,6 +190,8 @@ public class BankFrm extends javax.swing.JFrame
 				JButtonDeposit_actionPerformed(event);
 			else if (object == JButton_Withdraw)
 				JButtonWithdraw_actionPerformed(event);
+			else if (object == JButton_GetReport)
+				JButtonGetReport_actionPerformed(event);
 			else if (object == JButton_Addinterest)
 				JButtonAddinterest_actionPerformed(event);
 			
@@ -295,10 +306,16 @@ public class BankFrm extends javax.swing.JFrame
 		       JOptionPane.showMessageDialog(JButton_Withdraw, " Account "+accnr+" : balance is negative: $"+String.valueOf(newamount)+" !","Warning: negative balance",JOptionPane.WARNING_MESSAGE);
 		    }
 		}
-		
-		
 	}
-	
+
+	void JButtonGetReport_actionPerformed(java.awt.event.ActionEvent event)
+	{
+		JDialog_GetReport wd = new JDialog_GetReport(myframe);
+		wd.setBounds(430, 15, 275, 140);
+		wd.show();
+	}
+
+
 	void JButtonAddinterest_actionPerformed(java.awt.event.ActionEvent event)
 	{
 		  JOptionPane.showMessageDialog(JButton_Addinterest, "Add interest to all accounts","Add interest to all accounts",JOptionPane.WARNING_MESSAGE);
