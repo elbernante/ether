@@ -56,7 +56,7 @@ public abstract class Account {
 		Transaction tx = new Transaction(amount, description);
 		transactions.add(tx);
 		updateBalance(tx.getAmount());
-		return tx;
+		return (Transaction) UndomifiableProxy.createProxy(tx);
 	}
 	
 	public Transaction deposit(double amount, String description) {
