@@ -4,6 +4,8 @@ public interface AccountService {
 	
 	public default void init() { /* hook */ };
 	
+	public Account createAccount(Class<? extends Account> clazz, String accountNumber, Customer customer);
+	
 	public Account getAccount(String accountNumber);
 	
 	public Iterable<Account> getAllAccounts();

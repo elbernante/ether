@@ -27,6 +27,7 @@ public class AccountServiceProxy {
 			}
 			return retval;
 		});
+
 		return (AccountService) enhancer.create();
 	}
 }
