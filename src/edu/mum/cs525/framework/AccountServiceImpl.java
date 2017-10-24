@@ -64,9 +64,9 @@ public class AccountServiceImpl implements AccountService {
 	public List<Account> getAccounts(Customer customer) {
 		List<Account> accounts = new ArrayList<>();
 		for (Account account: getAllAccounts()) {
-			if (account.getCustomer() == customer) {
+//			if (account.getCustomer() == customer) {
 				accounts.add(account);
-			}
+//			}
 		}
 		return accounts;
 	}

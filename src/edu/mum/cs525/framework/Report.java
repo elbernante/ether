@@ -14,7 +14,7 @@ public class Report {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Account Report for customer ").append(customer);
+        sb.append("Account Report ");
         for (Account account: accounts) {
             sb.append("\nTransactions of account ").append(account.getAccountNumber());
             for (Transaction transaction: account.transactions) {
