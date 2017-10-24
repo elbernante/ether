@@ -15,16 +15,21 @@ public class ApplicationContext {
 		return context;
 	}
 	
-	private AccountService accountService = new AccountServiceImpl(); 
+	private AccountService accountService = new AccountServiceImpl();
+
+	private ReportService reportService = new ReportServiceImpl();
 	
 	private ApplicationContext() {}
 
 	public static void setAccountService(Class<? extends AccountService> clazz) {
 		 getContext().accountService = AccountServiceProxy.newProxy(clazz);
 	}
-	
+
 	public static AccountService getAccountService() {
 		return getContext().accountService;
 	}
 
+	public static ReportService getReportService() {
+		return getContext().reportService;
+	}
 }

@@ -1,5 +1,7 @@
 package edu.mum.cs525.framework;
 
+import java.util.List;
+
 public interface AccountService {
 	
 	public default void init() { /* hook */ };
@@ -19,5 +21,7 @@ public interface AccountService {
 	public void withdraw(String accountNumber, double amount);
 	
 	public void addInterest();
+
+	public List<Account> getAccounts(Customer customer);
 
 }
