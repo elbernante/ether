@@ -1,14 +1,14 @@
 package edu.mum.cs525.framework.Command;
 
-import edu.mum.cs525.framework.AccountServiceImpl;
+import edu.mum.cs525.framework.AccountService;
 
 
 
 public abstract class AbstractAccountCommand implements Command {
 
-	protected AccountServiceImpl serviceA;
+	protected AccountService serviceA;
 	
-	public AbstractAccountCommand(AccountServiceImpl serviceA) {
+	public AbstractAccountCommand(AccountService serviceA) {
 		super();
 		this.serviceA = serviceA;
 	}
