@@ -4,24 +4,24 @@ import java.util.ArrayList;
 
 public class EmailManager {
    
-   private volatile static EmailManager instance;
+    private volatile static EmailManager instance;
    
-   ArrayList<String> emails = new ArrayList<String>();
+    ArrayList<String> emails = new ArrayList<String>();
    
-   private EmailManager (){}
+    private EmailManager (){}
    
-   public static EmailManager getSingleton() {
-       if (instance == null) {                         
-           synchronized (EmailManager.class) {
-               if (instance == null) {       
-                   instance = new EmailManager();
-               }
-           }
-       }
-       return instance;
-   }
+    public static EmailManager getSingleton() {
+        if (instance == null) {                         
+            synchronized (EmailManager.class) {
+                if (instance == null) {       
+                    instance = new EmailManager();
+                }
+            }
+        }
+        return instance;
+    }
    
-   public void printEmail(String email){
-	   this.emails.add(email);
-   }
+    public void printEmail(String email){
+	    System.out.println(email);
+    }
 }
