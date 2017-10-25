@@ -1,12 +1,12 @@
-package edu.mum.cs525.project.creditcard;
+package edu.mum.cs525.framework;
 
-public class DeclineException extends RuntimeException {
+public class DeclinedException extends RuntimeException {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public DeclineException(String msg) {
+	public DeclinedException(String msg) {
 		super(msg);
 	}
 	

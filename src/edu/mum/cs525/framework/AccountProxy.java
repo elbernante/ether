@@ -11,15 +11,15 @@ public class AccountProxy {
 		enhancer.setCallback((MethodInterceptor) (obj, method, args, proxy) -> {
 			Object retval = proxy.invoke(account, args);
 			
-			if (method.getName() == Account.DEPOSIT) {
+			if (method.getName() == Account.DEPOSIT && null != retval) {
 				account.trigger(Account.DEPOSIT, retval);
 			}
 			
-			if (method.getName() == Account.WITHDRAW) {
+			if (method.getName() == Account.WITHDRAW && null != retval) {
 				account.trigger(Account.WITHDRAW, retval);
 			}
 			
-			if (method.getName() == Account.ADD_INTEREST) {
+			if (method.getName() == Account.ADD_INTEREST && null != retval) {
 				account.trigger(Account.ADD_INTEREST, retval);
 			}
 			
