@@ -2,8 +2,9 @@ package edu.mum.cs525.framework;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public abstract class Account {
+public class Account {
 	public static final String WITHDRAW = "withdraw";
 	public static final String DEPOSIT = "deposit";
 	public static final String ADD_INTEREST = "addInterest";
@@ -12,9 +13,21 @@ public abstract class Account {
 	private Customer customer;
 	private String accountNumber;
 	
+	private Transactionable depositAction;
+	private Transactionable withdrawAction;
+	private Interestable interestCalculator;
+	private CreditLimit creditLimit;
+	
 	protected List<Transaction> transactions = new ArrayList<>();
 	
-	public Account() {
+	public Account() { }
+	
+	public Account(AbstractAccountFactory factory) {
+		Objects.requireNonNull(factory);
+		this.depositAction = factory.createDepositAction();
+		this.withdrawAction = factory.createWithdrawAction();
+		this.interestCalculator = factory.createInterestCalculator();
+		this.creditLimit = factory.createCreditLimit();
 		init();
 	}
 	
@@ -46,43 +59,66 @@ public abstract class Account {
 		AccountActivityMonitor.broadcast(eventName, this, args);
 	}
 	
-	public void updateBalance(double amount) {
-		balance += amount;
+	public Transaction updateBalance(Transaction transaction, boolean checkLimit) {
+		double newBalance = balance + transaction.getAmount();
+		
+		if (checkLimit && !creditLimit.check(newBalance)) {
+			throw new DeclinedException("Transaction declined: " + transaction.getDescription() +
+					" Amount: " + transaction.getAmount());
+		}
+		
+		balance = newBalance;
+		transactions.add(transaction);
+		return (Transaction) UndomifiableProxy.createProxy(transaction);
 	}
 	
 	public void init() { /* hook */ }
 	
-	protected Transaction addTransaction(double amount, String description) {
-		Transaction tx = new Transaction(amount, description);
-		transactions.add(tx);
-		updateBalance(tx.getAmount());
-		return tx;
-	}
-	
-	public Transaction deposit(double amount, String description) {
-		 return addTransaction(amount, description);
-	}
-	
 	public Transaction deposit(double amount) {
-		return deposit(amount, "Deposit");
+		Transaction tx = depositAction.execute(amount);
+		 return updateBalance(tx, true);
 	}
-	
-	public Transaction withdraw(double amount, String description) {
-		return addTransaction(-amount, description);
-	};
 	
 	public Transaction withdraw(double amount) {
-		return withdraw(amount, "Withdraw");
+		Transaction tx = withdrawAction.execute(amount);
+		return updateBalance(tx, true);
+	};
+	
+	public double computeInterest() {
+		return interestCalculator.compute(getBalance());
 	}
 	
 	public Transaction addInterest(String description) {
-		double interest = computeInterest(getBalance());
-		return addTransaction(interest, description);
+		double interest = computeInterest();
+		if (interest < 0) {
+			return null;
+		}
+		Transaction tx = new Transaction(interest, description);
+		return updateBalance(tx, false);
 	}
-	
+
+	public List<Transaction> getTransactions() {
+		return transactions;
+	}
+
+	public List<Transaction> getLastMonthTransactions() {
+		List<Transaction> lastMonthTransactions = new ArrayList<>();
+		int n = transactions.size();
+		for (int i = n - 1; i >= n / 2; i--) {
+			lastMonthTransactions.add(transactions.get(i));
+		}
+		return lastMonthTransactions;
+	}
+
+	public double getLastMonthBalance() {
+		double lastBalance = balance;
+		for (Transaction transaction: getLastMonthTransactions()) {
+			lastBalance -= transaction.getAmount();
+		}
+		return lastBalance;
+	}
+
 	public Transaction addInterest() {
 		return addInterest("Add Interest");
 	}
-	
-	public abstract double computeInterest(double balance);
 }

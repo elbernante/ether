@@ -2,6 +2,7 @@ package edu.mum.cs525.framework;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class AccountServiceImpl implements AccountService {
@@ -14,8 +15,8 @@ public class AccountServiceImpl implements AccountService {
 	
 	public void init() { /* hook */}
 	
-	public Account createAccount(Class<? extends Account> clazz, String accountNumber, Customer customer) {
-		Account account = Util.instantiate(clazz);
+	public Account createAccount(AbstractAccountFactory factory, String accountNumber, Customer customer) {
+		Account account = new Account(factory);
 		account = AccountProxy.newProxy(account);
 		account.setCustomer(customer);
 		account.setAccountNumber(accountNumber);
@@ -57,5 +58,16 @@ public class AccountServiceImpl implements AccountService {
 		for (Account account : getAllAccounts()) {
 			account.addInterest();
 		}
+	}
+
+	@Override
+	public List<Account> getAccounts(Customer customer) {
+		List<Account> accounts = new ArrayList<>();
+		for (Account account: getAllAccounts()) {
+//			if (account.getCustomer() == customer) {
+				accounts.add(account);
+//			}
+		}
+		return accounts;
 	}
 }
