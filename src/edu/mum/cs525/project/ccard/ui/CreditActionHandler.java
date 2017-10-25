@@ -9,6 +9,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import edu.mum.cs525.framework.Command.CommandsManager;
+import edu.mum.cs525.framework.Command.EmailManagerCommand;
+
 public class CreditActionHandler implements ActionListener {
 
 	String clientName, street, city, zip, state, accountType, amountDeposit, expdate, ccnumber;
@@ -120,6 +123,9 @@ public class CreditActionHandler implements ActionListener {
 						" " + name + " Your balance is negative: $" + String.valueOf(newamount) + " !",
 						"Warning: negative balance", JOptionPane.WARNING_MESSAGE);
 			}
+			EmailManagerCommand emc = new EmailManagerCommand("Account: " + name + " withdraw :" + amountDeposit );
+		    CommandsManager.getInstance().setCommand(emc);
+		    CommandsManager.getInstance().invokeCommand();
 		}
 
 	}
