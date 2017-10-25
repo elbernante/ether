@@ -11,4 +11,9 @@ public class BronzeAccount extends CreditAccount {
 		return balance * 0.1;
 	}
 
+	@Override
+	public double computeMinimumPayment(double balance) {
+		return balance * 0.14;
+	}
+
 }

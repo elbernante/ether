@@ -4,6 +4,7 @@ import edu.mum.cs525.framework.Account;
 import edu.mum.cs525.framework.AccountActivityMonitor;
 import edu.mum.cs525.framework.ApplicationContext;
 import edu.mum.cs525.framework.Customer;
+import edu.mum.cs525.project.creditcard.account.CreditAccount;
 
 public class CreditCard {
 	
@@ -29,6 +30,8 @@ public class CreditCard {
 		catch(DeclineException de) {
 			System.out.println("DeclineException: " + de.getMessage());
 		}
+
+		System.out.println(new CreditReportService().createReport((CreditAccount) acc));
 		// TODO: Send appContext to UI
 	}
 
