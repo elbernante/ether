@@ -71,7 +71,7 @@ public class JDialogGenBill extends javax.swing.JDialog
 
 	//{{DECLARE_CONTROLS
 	javax.swing.JScrollPane JScrollPane1 = new javax.swing.JScrollPane();
-	javax.swing.JTextField JTextField1 = new javax.swing.JTextField();
+	javax.swing.JTextArea JTextField1 = new javax.swing.JTextArea();
 	javax.swing.JButton JButton_OK = new javax.swing.JButton();
 	//}}
 
