@@ -1,10 +1,8 @@
 package edu.mum.cs525.project.bank;
 
-import edu.mum.cs525.framework.Account;
 import edu.mum.cs525.framework.AccountActivityMonitor;
 import edu.mum.cs525.framework.ApplicationContext;
-import edu.mum.cs525.framework.Customer;
-import edu.mum.cs525.project.bank.ui.BankFrm;
+import edu.mum.cs525.project.bank.ui.BankUI;
 
 public class Bank {
 	
@@ -15,7 +13,9 @@ public class Bank {
 		// TODO: EmailManger factory
 		
 		
-		BankFrm.main(args);
+//		BankFrm.main(args);
+		
+		BankUI.main(args);
 		
 //		
 //		// Usage

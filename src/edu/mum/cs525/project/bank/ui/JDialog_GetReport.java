@@ -11,11 +11,12 @@ import java.awt.*;
 public class JDialog_GetReport extends JDialog
 {
 
-    private BankFrm parentframe;
+//    private BankFrm parentframe;
+    BankActionHandler parentframe;
 
-	public JDialog_GetReport(BankFrm parent)
+	public JDialog_GetReport(BankActionHandler parent)
 	{
-		super(parent);
+//		super(parent);
 		parentframe=parent;
 
 		setTitle("Report");
