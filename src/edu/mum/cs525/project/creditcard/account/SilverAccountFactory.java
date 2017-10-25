@@ -14,5 +14,10 @@ public class SilverAccountFactory extends CreditAccountFactory {
 	public CreditLimit createCreditLimit() {
 		return new SilverCreditLimit();
 	}
+	
+	@Override
+	public String getType() {
+		return "SILVER";
+	}
 
 }

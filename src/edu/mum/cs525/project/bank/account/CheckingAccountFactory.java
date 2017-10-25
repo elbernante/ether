@@ -9,4 +9,9 @@ public class CheckingAccountFactory extends BankingAccountFactory {
 		return new CheckingInterest();
 	}
 	
+	@Override
+	public String getType() {
+		return "CHECKING";
+	}
+	
 }

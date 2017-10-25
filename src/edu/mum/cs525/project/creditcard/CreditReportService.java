@@ -1,10 +1,10 @@
 package edu.mum.cs525.project.creditcard;
 
+import edu.mum.cs525.framework.Account;
 import edu.mum.cs525.framework.Transaction;
-import edu.mum.cs525.project.creditcard.account.CreditAccount;
 
 public class CreditReportService {
-    public CreditAccountReport createReport(CreditAccount account) {
+    public CreditAccountReport createReport(Account account) {
         double previousBalance = account.getLastMonthBalance();
         double totalPayments = 0, totalCredits = 0;
 
@@ -17,7 +17,7 @@ public class CreditReportService {
         }
 
         double newBalance = previousBalance + totalCredits + totalPayments + account.computeInterest(previousBalance + totalCredits);
-        double totalDue = account.computeMinimumPayment(newBalance);
+        double totalDue = MinimumPaymentCalculator.compute(account, newBalance);
         return new CreditAccountReport(previousBalance, totalPayments, totalCredits, newBalance, totalDue);
     }
 }

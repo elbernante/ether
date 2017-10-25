@@ -14,5 +14,10 @@ public class BronzeAccountFactory extends CreditAccountFactory {
 	public CreditLimit createCreditLimit() {
 		return new BronzeCreditLimit();
 	}
+	
+	@Override
+	public String getType() {
+		return "BRONZE";
+	}
 
 }
