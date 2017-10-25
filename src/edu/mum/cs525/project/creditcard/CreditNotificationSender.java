@@ -5,14 +5,13 @@ import edu.mum.cs525.framework.BusinessCustomer;
 import edu.mum.cs525.framework.Customer;
 import edu.mum.cs525.framework.PersonalCustomer;
 import edu.mum.cs525.framework.Transaction;
-import edu.mum.cs525.project.creditcard.account.CreditAccount;
 
 public class CreditNotificationSender {
 	
 	// TODO: Delegate message sending to Email
 	// TODO: Implement logic for criteria for sending email
 	
-	public void onDeposit(CreditAccount acc) {
+	public void onDeposit(Account acc) {
 		System.out.println("Dopsiting");
 	}
 	

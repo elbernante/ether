@@ -15,8 +15,8 @@ public class AccountServiceImpl implements AccountService {
 	
 	public void init() { /* hook */}
 	
-	public Account createAccount(Class<? extends Account> clazz, String accountNumber, Customer customer) {
-		Account account = Util.instantiate(clazz);
+	public Account createAccount(AbstractAccountFactory factory, String accountNumber, Customer customer) {
+		Account account = new Account(factory);
 		account = AccountProxy.newProxy(account);
 		account.setCustomer(customer);
 		account.setAccountNumber(accountNumber);
