@@ -11,4 +11,9 @@ public class GoldAccount extends CreditAccount {
 		return balance * 0.06;
 	}
 
+	@Override
+	public double computeMinimumPayment(double balance) {
+		return balance * 0.1;
+	}
+
 }

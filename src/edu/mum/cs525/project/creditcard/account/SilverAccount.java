@@ -11,4 +11,9 @@ public class SilverAccount extends CreditAccount {
 		return balance * 0.08;
 	}
 
+	@Override
+	public double computeMinimumPayment(double balance) {
+		return balance * 0.12;
+	}
+
 }

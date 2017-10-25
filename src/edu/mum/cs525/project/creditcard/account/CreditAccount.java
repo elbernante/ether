@@ -52,4 +52,9 @@ public abstract class CreditAccount extends Account implements CreditInterest {
 		return creditInterest.computeInterest(balance);
 	}
 
+    public abstract double computeMinimumPayment(double balance);
+
+	public CreditInterest getCreditInterest() {
+		return creditInterest;
+	}
 }

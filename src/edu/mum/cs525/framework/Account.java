@@ -79,7 +79,28 @@ public abstract class Account {
 		double interest = computeInterest(getBalance());
 		return addTransaction(interest, description);
 	}
-	
+
+	public List<Transaction> getTransactions() {
+		return transactions;
+	}
+
+	public List<Transaction> getLastMonthTransactions() {
+		List<Transaction> lastMonthTransactions = new ArrayList<>();
+		int n = transactions.size();
+		for (int i = n - 1; i >= n / 2; i--) {
+			lastMonthTransactions.add(transactions.get(i));
+		}
+		return lastMonthTransactions;
+	}
+
+	public double getLastMonthBalance() {
+		double lastBalance = balance;
+		for (Transaction transaction: getLastMonthTransactions()) {
+			lastBalance -= transaction.getAmount();
+		}
+		return lastBalance;
+	}
+
 	public Transaction addInterest() {
 		return addInterest("Add Interest");
 	}
