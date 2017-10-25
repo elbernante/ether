@@ -7,7 +7,7 @@ public class SavingsAccount extends Account {
 	@Override
 	public double computeInterest(double balance) {
 		// TODO Auto-generated method stub
-		return 0;
+		return balance * 0.025;
 	}
 
 }
