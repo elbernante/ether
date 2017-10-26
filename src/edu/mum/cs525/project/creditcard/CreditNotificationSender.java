@@ -23,14 +23,14 @@ public class CreditNotificationSender {
 	}	
 
 	public void onDeposit(Account acc, PersonalCustomer pc, Transaction tx) {
-		if (tx.getAmount() > 400) {
-			sendEmail(pc.getEmail(), "Account: " + acc.getAccountNumber() + " deposit: " + -tx.getAmount());
+		if (tx.getAmount() < -400) {
+			sendEmail(pc.getEmail(), "Account: " + acc.getAccountNumber() + " payment: " + -tx.getAmount());
 		}
 	}
 	
 	public void onWithdraw(Account acc, PersonalCustomer pc, Transaction tx) {
 		if (tx.getAmount() > 400) {
-			sendEmail(pc.getEmail(), "Account: " + acc.getAccountNumber() + " withdraw: " + -tx.getAmount());
+			sendEmail(pc.getEmail(), "Account: " + acc.getAccountNumber() + " purchase: " + -tx.getAmount());
 		}
 	}
 	
