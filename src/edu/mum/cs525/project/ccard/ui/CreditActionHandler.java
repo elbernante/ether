@@ -172,8 +172,6 @@ public class CreditActionHandler implements ActionListener {
 			}
 
 			// do real deposit
-			ApplicationContext.getAccountService().getAccount(ccnumber).withdraw(deposit);
-			
 			WithdrawCommand wc = new WithdrawCommand(ApplicationContext.getAccountService(), ccnumber, deposit);
 			CommandsManager.getInstance().setCommand(wc);
 			CommandsManager.getInstance().invokeCommand();
