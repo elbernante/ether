@@ -168,25 +168,8 @@ public class CreditActionHandler implements ActionListener {
 						"Warning: negative balance", JOptionPane.WARNING_MESSAGE);
 			}
 
-<<<<<<< .mine
-			
 			// do real deposit
-=======
-
-
->>>>>>> .theirs
 			ApplicationContext.getAccountService().getAccount(ccnumber).withdraw(deposit);
-<<<<<<< .mine
-			
-			EmailManagerCommand emc = new EmailManagerCommand("Account: " + name + " withdraw :" + amountDeposit );
-		    CommandsManager.getInstance().setCommand(emc);
-		    CommandsManager.getInstance().invokeCommand();
-=======
-
-
-
-
->>>>>>> .theirs
 		}
 
 	}	
