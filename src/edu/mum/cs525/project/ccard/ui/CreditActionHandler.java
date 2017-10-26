@@ -13,7 +13,9 @@ import edu.mum.cs525.framework.Account;
 import edu.mum.cs525.framework.Address;
 import edu.mum.cs525.framework.ApplicationContext;
 import edu.mum.cs525.framework.Customer;
-
+import edu.mum.cs525.framework.Command.CommandsManager;
+import edu.mum.cs525.framework.Command.DepositCommand;
+import edu.mum.cs525.framework.Command.WithdrawCommand;
 import edu.mum.cs525.project.creditcard.CreditAccountService;
 
 public class CreditActionHandler implements ActionListener {
@@ -139,8 +141,9 @@ public class CreditActionHandler implements ActionListener {
 			
 			
 			// do real deposit
-			ApplicationContext.getAccountService().getAccount(ccnumber).deposit(deposit);
-			
+			DepositCommand dc = new DepositCommand(ApplicationContext.getAccountService(), ccnumber, deposit);
+			CommandsManager.getInstance().setCommand(dc);
+			CommandsManager.getInstance().invokeCommand();
 		}
 
 	}
@@ -170,6 +173,10 @@ public class CreditActionHandler implements ActionListener {
 
 			// do real deposit
 			ApplicationContext.getAccountService().getAccount(ccnumber).withdraw(deposit);
+			
+			WithdrawCommand wc = new WithdrawCommand(ApplicationContext.getAccountService(), ccnumber, deposit);
+			CommandsManager.getInstance().setCommand(wc);
+			CommandsManager.getInstance().invokeCommand();
 		}
 
 	}	
