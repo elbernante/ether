@@ -13,6 +13,7 @@ import edu.mum.cs525.framework.Account;
 import edu.mum.cs525.framework.Address;
 import edu.mum.cs525.framework.ApplicationContext;
 import edu.mum.cs525.framework.Customer;
+import edu.mum.cs525.framework.Command.AddInterestCommand;
 import edu.mum.cs525.framework.Command.CommandsManager;
 import edu.mum.cs525.framework.Command.DepositCommand;
 import edu.mum.cs525.framework.Command.WithdrawCommand;
@@ -90,11 +91,12 @@ public class BankActionHandler implements ActionListener {
 			Customer cust = service.createPersonalCustomer();
 			Account acc = null;
 			
-			if ("Checking" == accountType)
+			
+			if ("Ch" == accountType)
 			{
-				acc = service.createCheckingAccount(clientName, cust);
+				acc = service.createCheckingAccount(accountnr, cust);
 			}
-			else if ("Saving" == accountType)
+			else if ("S" == accountType)
 			{
 				acc = service.createSavingsAccount(accountnr, cust);
 			}
@@ -165,9 +167,7 @@ public class BankActionHandler implements ActionListener {
 			model.setValueAt(String.valueOf(newamount), selection, 5);
 			
 			// do real deposit
-			DepositCommand dc = new DepositCommand(ApplicationContext.getAccountService(), accountnr, deposit);
-			CommandsManager.getInstance().setCommand(dc);
-			CommandsManager.getInstance().invokeCommand();
+	 
 		}
 
 	}
@@ -209,6 +209,11 @@ public class BankActionHandler implements ActionListener {
 	}
 
 	void JButtonAddinterest_actionPerformed(java.awt.event.ActionEvent event) {
+		
+		AddInterestCommand ac = new AddInterestCommand(ApplicationContext.getAccountService());
+		CommandsManager.getInstance().setCommand(ac);
+		CommandsManager.getInstance().invokeCommand();
+		
 		JOptionPane.showMessageDialog(null, "Add interest to all accounts", "Add interest to all accounts",
 				JOptionPane.WARNING_MESSAGE);
 

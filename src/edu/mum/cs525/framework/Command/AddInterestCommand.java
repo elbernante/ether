@@ -1,9 +1,9 @@
 package edu.mum.cs525.framework.Command;
 
-import edu.mum.cs525.framework.AccountServiceImpl;
+import edu.mum.cs525.framework.AccountService;
 
 public class AddInterestCommand extends AbstractAccountCommand {
-	public AddInterestCommand(AccountServiceImpl serviceA) {
+	public AddInterestCommand(AccountService serviceA) {
 		super(serviceA);
 	}
 
