@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Account {
+public abstract class Account {
 	public static final String WITHDRAW = "withdraw";
 	public static final String DEPOSIT = "deposit";
 	public static final String ADD_INTEREST = "addInterest";
@@ -20,18 +20,25 @@ public class Account {
 	private CreditLimit creditLimit;
 	private String accountType;
 	
+	private AbstractAccountFactory factory;
+	
 	protected List<Transaction> transactions = new ArrayList<>();
 	
-	public Account() { }
+//	public Account() { }
 	
 	public Account(AbstractAccountFactory factory) {
 		Objects.requireNonNull(factory);
+		this.factory = factory;
 		this.depositAction = factory.createDepositAction();
 		this.withdrawAction = factory.createWithdrawAction();
 		this.interestCalculator = factory.createInterestCalculator();
 		this.creditLimit = factory.createCreditLimit();
 		this.accountType = factory.getType();
 		init();
+	}
+	
+	public AbstractAccountFactory getFactory() {
+		return factory;
 	}
 	
 	public String getAccountType() {
@@ -129,4 +136,6 @@ public class Account {
 	public Transaction addInterest() {
 		return addInterest("Add Interest");
 	}
+	
+	public void accept(Object object) { /* default no-op */}
 }

@@ -21,7 +21,7 @@ public class CreditNotificationSender {
 		sendEmail(pc.getEmail(), "Exceed credit limit! A purchase of $" + Math.abs(tx.getAmount()) +
 				" was attempted from account " + acc.getAccountNumber() + " on " + tx.getDate());
 	}	
-	
+
 	public void onDeposit(Account acc, PersonalCustomer pc, Transaction tx) {
 		if (tx.getAmount() > 400) {
 			sendEmail(pc.getEmail(), "Account: " + acc.getAccountNumber() + " deposit: " + -tx.getAmount());

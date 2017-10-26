@@ -6,7 +6,7 @@ public interface AccountService {
 	
 	public default void init() { /* hook */ };
 	
-	public Account createAccount(AbstractAccountFactory factory, String accountNumber, Customer customer);
+	public Account createAccount(AbstractAccountFactory factory, Class<?> clazz, String accountNumber, Customer customer);
 	
 	public Account getAccount(String accountNumber);
 	

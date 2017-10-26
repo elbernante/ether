@@ -25,6 +25,8 @@ public class AccountProxy {
 			
 			return retval;
 		});
-		return (Account) enhancer.create();
+		return (Account) enhancer.create(
+				new Class[] {AbstractAccountFactory.class}, 
+				new Object[] {account.getFactory()});
 	}
 }
