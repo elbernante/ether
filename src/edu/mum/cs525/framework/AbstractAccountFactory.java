@@ -5,4 +5,5 @@ public interface AbstractAccountFactory {
 	public Transactionable createWithdrawAction();
 	public Interestable createInterestCalculator();
 	public CreditLimit createCreditLimit();
+	public String getType();
 }

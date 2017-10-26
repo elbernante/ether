@@ -5,14 +5,22 @@ import edu.mum.cs525.framework.BusinessCustomer;
 import edu.mum.cs525.framework.Customer;
 import edu.mum.cs525.framework.PersonalCustomer;
 import edu.mum.cs525.framework.Transaction;
+import edu.mum.cs525.framework.Command.CommandsManager;
+import edu.mum.cs525.framework.Command.EmailManagerCommand;
 
 public class CreditNotificationSender {
 	
 	// TODO: Delegate message sending to Email
 	// TODO: Implement logic for criteria for sending email
 	
-	public void onDeposit(Account acc) {
-		System.out.println("Dopsiting");
+	public void onDeposit(Account acc, Transaction tx) {
+		if (tx.getAmount() > 400) {
+			EmailManagerCommand emc = new EmailManagerCommand("Account: " + acc.getAccountNumber() + " withdraw :" + -tx.getAmount() );
+		    CommandsManager.getInstance().setCommand(emc);
+		    CommandsManager.getInstance().invokeCommand();
+		}
+
+		// send email here
 	}
 	
 	public void onWithdraw(Transaction tx, BusinessCustomer bc, Account acc) {

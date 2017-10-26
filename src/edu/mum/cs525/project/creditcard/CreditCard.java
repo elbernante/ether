@@ -36,7 +36,7 @@ public class CreditCard {
 			System.out.println("DeclineException: " + de.getMessage());
 		}
 
-//		System.out.println(new CreditReportService().createReport((CreditAccount) acc));
+		System.out.println(new CreditReportService().createReport(acc));
 		// TODO: Send appContext to UI
 	}
 

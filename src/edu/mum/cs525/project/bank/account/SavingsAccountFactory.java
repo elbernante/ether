@@ -8,4 +8,9 @@ public class SavingsAccountFactory extends BankingAccountFactory {
 	public Interestable createInterestCalculator() {
 		return new SavingsInterest();
 	}
+	
+	@Override
+	public String getType() {
+		return "SAVINGS";
+	}
 }

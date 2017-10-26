@@ -13,8 +13,7 @@ import edu.mum.cs525.framework.Account;
 import edu.mum.cs525.framework.Address;
 import edu.mum.cs525.framework.ApplicationContext;
 import edu.mum.cs525.framework.Customer;
-import edu.mum.cs525.framework.Command.CommandsManager;
-import edu.mum.cs525.framework.Command.EmailManagerCommand;
+
 import edu.mum.cs525.project.creditcard.CreditAccountService;
 
 public class CreditActionHandler implements ActionListener {
@@ -168,13 +167,26 @@ public class CreditActionHandler implements ActionListener {
 						" " + name + " Your balance is negative: $" + String.valueOf(newamount) + " !",
 						"Warning: negative balance", JOptionPane.WARNING_MESSAGE);
 			}
+
+<<<<<<< .mine
 			
 			// do real deposit
+=======
+
+
+>>>>>>> .theirs
 			ApplicationContext.getAccountService().getAccount(ccnumber).withdraw(deposit);
+<<<<<<< .mine
 			
 			EmailManagerCommand emc = new EmailManagerCommand("Account: " + name + " withdraw :" + amountDeposit );
 		    CommandsManager.getInstance().setCommand(emc);
 		    CommandsManager.getInstance().invokeCommand();
+=======
+
+
+
+
+>>>>>>> .theirs
 		}
 
 	}	
