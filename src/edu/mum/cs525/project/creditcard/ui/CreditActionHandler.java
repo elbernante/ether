@@ -75,34 +75,27 @@ public class CreditActionHandler implements ActionListener {
 		JDialogGenBill billFrm = new JDialogGenBill();
 		billFrm.setBounds(450, 20, 400, 350);
 		billFrm.show();
-
 	}
 
 	void JButtonDeposit_actionPerformed(java.awt.event.ActionEvent event) {
 		// get selected name
 		int selection = JTable1.getSelectionModel().getMinSelectionIndex();
 		if (selection >= 0) {
-			String name = (String) model.getValueAt(selection, 0);
+			String ccNumber = (String) model.getValueAt(selection, 1);
 
 			// Show the dialog for adding deposit amount for the current mane
-			JDialog_Deposit dep = new JDialog_Deposit(this, name);
+			JDialog_Deposit dep = new JDialog_Deposit(ccNumber, paymentAmount -> {
+				CreditAccount acc = (CreditAccount) accountService.getAccount(ccNumber);
+				if (null != acc) {
+					DepositCommand dc = new DepositCommand(accountService, acc.getAccountNumber(), paymentAmount);
+					CommandsManager.getInstance().setCommand(dc);
+					CommandsManager.getInstance().invokeCommand();
+					updateValueAtRow(selection, acc);
+				}
+			});
 			dep.setBounds(430, 15, 275, 140);
 			dep.show();
-
-			// compute new amount
-			long deposit = Long.parseLong(amountDeposit);
-			String samount = (String) model.getValueAt(selection, 4);
-			long currentamount = Long.parseLong(samount);
-			long newamount = currentamount + deposit;
-			model.setValueAt(String.valueOf(newamount), selection, 4);
-			
-			
-			// do real deposit
-			DepositCommand dc = new DepositCommand(ApplicationContext.getAccountService(), ccnumber, deposit);
-			CommandsManager.getInstance().setCommand(dc);
-			CommandsManager.getInstance().invokeCommand();
 		}
-
 	}
 
 	void JButtonWithdraw_actionPerformed(java.awt.event.ActionEvent event) {
