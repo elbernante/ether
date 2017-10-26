@@ -23,9 +23,11 @@ public class AccountServiceProxy {
 			Object retval = null;
 			if (method.getName().matches("^(create)[A-Z].*(Account)$")) {
 				String className = method.getName().substring(6) + "Factory";
+				Class<?> accountType = method.getReturnType();
 				AbstractAccountFactory factory = ApplicationContext.getFactoryInstanceForClass(className);
-				Method m = instance.getClass().getMethod("createAccount", AbstractAccountFactory.class, String.class, Customer.class);
-				retval = m.invoke(instance, new Object[] {factory, args[0], args[1]});
+				
+				Method m = instance.getClass().getMethod("createAccount", AbstractAccountFactory.class, Class.class, String.class, Customer.class);
+				retval = m.invoke(instance, new Object[] {factory, accountType, args[0], args[1]});
 			} else {
 				retval = proxy.invoke(instance, args);
 			}

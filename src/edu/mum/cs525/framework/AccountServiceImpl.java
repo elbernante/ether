@@ -1,5 +1,6 @@
 package edu.mum.cs525.framework;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,16 +14,23 @@ public class AccountServiceImpl implements AccountService {
 		init();
 	}
 	
-	public void init() { /* hook */}
-	
-	public Account createAccount(AbstractAccountFactory factory, String accountNumber, Customer customer) {
-		Account account = new Account(factory);
+	public Account createAccount(AbstractAccountFactory factory, Class<?> clazz, String accountNumber, Customer customer) {
+		Account account = null;
+		try {
+			account = (Account) clazz.getConstructor(AbstractAccountFactory.class).newInstance(factory);
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+				| NoSuchMethodException | SecurityException e) {
+			throw new RuntimeException(e.getMessage());
+		}
+
 		account = AccountProxy.newProxy(account);
 		account.setCustomer(customer);
 		account.setAccountNumber(accountNumber);
 		accounts.put(accountNumber, account);
 		return account;
 	}
+	
+	public void init() { /* hook */}
 	
 	public Account getAccount(String accountNumber) {
 		return accounts.get(accountNumber);
