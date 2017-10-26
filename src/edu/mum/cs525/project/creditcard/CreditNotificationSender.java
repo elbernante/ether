@@ -2,7 +2,6 @@ package edu.mum.cs525.project.creditcard;
 
 import edu.mum.cs525.framework.Account;
 import edu.mum.cs525.framework.BusinessCustomer;
-import edu.mum.cs525.framework.Customer;
 import edu.mum.cs525.framework.PersonalCustomer;
 import edu.mum.cs525.framework.Transaction;
 import edu.mum.cs525.framework.Command.CommandsManager;
@@ -10,32 +9,38 @@ import edu.mum.cs525.framework.Command.EmailManagerCommand;
 
 public class CreditNotificationSender {
 	
-	// TODO: Delegate message sending to Email
-	// TODO: Implement logic for criteria for sending email
+	private void sendEmail(String emailAddress, String message) {
+		String emailMessage = "Sending email to: " + emailAddress + "\n" + "Message: " + message;
+		EmailManagerCommand emc = new EmailManagerCommand(emailMessage);
+	    CommandsManager.getInstance().setCommand(emc);
+	    CommandsManager.getInstance().invokeCommand();
+	}
 	
-	public void onDeposit(Account acc, Transaction tx) {
+	//personal account notification
+	public void onOverdraft(Account acc, PersonalCustomer pc, Transaction tx){
+		sendEmail(pc.getEmail(), "Exceed credit limit! A purchase of $" + Math.abs(tx.getAmount()) +
+				" was attempted from account " + acc.getAccountNumber() + " on " + tx.getDate());
+	}	
+	
+	public void onDeposit(Account acc, PersonalCustomer pc, Transaction tx) {
 		if (tx.getAmount() > 400) {
-			EmailManagerCommand emc = new EmailManagerCommand("Account: " + acc.getAccountNumber() + " withdraw :" + -tx.getAmount() );
-		    CommandsManager.getInstance().setCommand(emc);
-		    CommandsManager.getInstance().invokeCommand();
+			sendEmail(pc.getEmail(), "Account: " + acc.getAccountNumber() + " deposit: " + -tx.getAmount());
 		}
-
-		// send email here
 	}
 	
-	public void onWithdraw(Transaction tx, BusinessCustomer bc, Account acc) {
-		System.out.println("Withdrawing Business");
-		
-		System.out.println("   BALANCE: " + acc.getBalance());
+	public void onWithdraw(Account acc, PersonalCustomer pc, Transaction tx) {
+		if (tx.getAmount() > 400) {
+			sendEmail(pc.getEmail(), "Account: " + acc.getAccountNumber() + " withdraw: " + -tx.getAmount());
+		}
 	}
 	
-	public void onWithdraw(PersonalCustomer pc) {
-		System.out.println("Withdrawing Personal");
+	//business account notification
+	public void onDeposit(Account acc, BusinessCustomer bc, Transaction tx) {
+		sendEmail(bc.getEmail(), "Account: " + acc.getAccountNumber() + " deposit: " + -tx.getAmount());
 	}
 	
-	public void onWithdraw(Account acc, Customer pc, Transaction tx) {
-		System.out.println("Withdrawing generic");
-		System.out.println("   Withrawn:" + tx.getAmount());
-		System.out.println("   New balance:" + acc.getBalance());
+	public void onWithdraw(Account acc, BusinessCustomer bc, Transaction tx) {
+		sendEmail(bc.getEmail(), "Account: " + acc.getAccountNumber() + " withdraw: " + -tx.getAmount());
 	}
+	
 }
