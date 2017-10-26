@@ -33,7 +33,7 @@ public class BankActionHandler implements ActionListener {
 		this.model = (DefaultTableModel) JTable1.getModel();
 		this.JTable1 = JTable1;
 //		rowdata = new Object[8];
-		loadAccounts();
+		reloadAccounts();
 	}
 
 	@Override
@@ -149,12 +149,16 @@ public class BankActionHandler implements ActionListener {
 
 	void JButtonAddinterest_actionPerformed(java.awt.event.ActionEvent event) {
 		
-		AddInterestCommand ac = new AddInterestCommand(ApplicationContext.getAccountService());
+		AddInterestCommand ac = new AddInterestCommand(accountService);
 		CommandsManager.getInstance().setCommand(ac);
 		CommandsManager.getInstance().invokeCommand();
 		
-		JOptionPane.showMessageDialog(null, "Add interest to all accounts", "Add interest to all accounts",
-				JOptionPane.WARNING_MESSAGE);
+		reloadAccounts();
+		
+		JOptionPane.showMessageDialog(null,
+				"Interests added to all accounts.",
+				"Interest",
+				JOptionPane.INFORMATION_MESSAGE);
 
 	}
 	
@@ -164,7 +168,7 @@ public class BankActionHandler implements ActionListener {
 		}
 	}
 	
-	private void loadAccounts() {
+	private void reloadAccounts() {
 		clearTable();
 		for (Account acc : accountService.getAllAccounts()) {
 			insertAccountToTable(acc);
