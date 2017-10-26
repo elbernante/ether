@@ -101,23 +101,19 @@ public class BankActionHandler implements ActionListener {
 			String accnr = (String) model.getValueAt(selection, 0);
 
 			// Show the dialog for adding deposit amount for the current mane
-			JDialog_Deposit dep = new JDialog_Deposit(accnr, this);
+			JDialog_Deposit dep = new JDialog_Deposit(accnr, deposit -> {
+				Account acc = accountService.getAccount(accnr);
+				if (null != acc) {
+					DepositCommand dc = new DepositCommand(accountService, acc.getAccountNumber(), deposit);
+					CommandsManager.getInstance().setCommand(dc);
+					CommandsManager.getInstance().invokeCommand();
+					updateValueAtRow(selection, acc);
+				}
+			});
+			
 			dep.setBounds(430, 15, 275, 140);
 			dep.show();
-
-			// compute new amount
-			long deposit = Long.parseLong(amountDeposit);
-			String samount = (String) model.getValueAt(selection, 5);
-			long currentamount = Long.parseLong(samount);
-			long newamount = currentamount + deposit;
-			model.setValueAt(String.valueOf(newamount), selection, 5);
-			
-			// do real deposit
-			DepositCommand dc = new DepositCommand(ApplicationContext.getAccountService(), accountnr, deposit);
-			CommandsManager.getInstance().setCommand(dc);
-			CommandsManager.getInstance().invokeCommand();
 		}
-
 	}
 
 	void JButtonWithdraw_actionPerformed(java.awt.event.ActionEvent event) {
@@ -185,6 +181,13 @@ public class BankActionHandler implements ActionListener {
 	
 	private void insertAccountToTable(Account acc) {
 		model.addRow(accountToObjectArray(acc));
+	}
+	
+	private void updateValueAtRow(int rowNum, Account acc) {
+		Object[] cell = accountToObjectArray(acc);
+		for (int i = 0; i < cell.length; i++) {
+			model.setValueAt(cell[i], rowNum, i);
+		}
 	}
 	
 	private Object[] accountToObjectArray(Account acc) {
