@@ -15,7 +15,7 @@ public class CreditNotificationSender {
 	
 	public void onDeposit(Account acc, Transaction tx) {
 			
-		if (tx.getAmount() > 400 || tx.getAmount() < 0) {
+		if (tx.getAmount() > 400 || acc.getBalance() < 0) {
 			EmailManagerCommand emc = new EmailManagerCommand("Account: " + acc.getAccountNumber() + " withdraw :" + -tx.getAmount() );
 		    CommandsManager.getInstance().setCommand(emc);
 		    CommandsManager.getInstance().invokeCommand();
