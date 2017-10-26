@@ -3,8 +3,6 @@ package edu.mum.cs525.project.creditcard.ui;
 		A basic implementation of the JDialog class.
 */
 
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.function.Consumer;
 
 import edu.mum.cs525.framework.ApplicationContext;
@@ -15,7 +13,6 @@ import edu.mum.cs525.project.creditcard.account.CreditAccount;
 
 public class JDialog_AddCCAccount extends javax.swing.JDialog
 {
-    private CreditActionHandler parentframe;
     private CreditAccountService accountService = (CreditAccountService) ApplicationContext.getAccountService();
     private Consumer<CreditAccount> callback = null;
     
@@ -218,24 +215,7 @@ public class JDialog_AddCCAccount extends javax.swing.JDialog
 		if (null != callback) {
 			callback.accept(acc);
 		}
-//		
-//       parentframe.clientName=JTextField_NAME.getText();
-//       parentframe.street=JTextField_STR.getText();
-//       parentframe.city=JTextField_CT.getText();
-//       parentframe.zip=JTextField_ZIP.getText();
-//       parentframe.state=JTextField_ST.getText();
-//       parentframe.ccnumber=JTextField_CCNR.getText();
-//       parentframe.expdate=JTextField_ExpDate.getText();
-//       if (JRadioButton_Gold.isSelected())
-//           parentframe.accountType="Gold";
-//           else{
-//            if (JRadioButton_Silver.isSelected())
-//                parentframe.accountType="Silver";
-//                else
-//                parentframe.accountType="Bronze";
-//           }
-//           
-//	   parentframe.newaccount=true;
+
        dispose();
 	}
 
