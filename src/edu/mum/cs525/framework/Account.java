@@ -137,5 +137,5 @@ public abstract class Account {
 		return addInterest("Add Interest");
 	}
 	
-	public void accept(Object object) { /* default no-op */}
+	public void accept(Object object) { /* default no-op */ System.out.println("Syour accpet");}
 }

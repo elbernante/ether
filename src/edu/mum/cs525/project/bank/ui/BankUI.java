@@ -16,7 +16,6 @@ public class BankUI extends UITemplate {
 
 	public BankUI(JTable table, String frameTitle, String withdrawText, ActionListener listener) {
 		super(table, frameTitle, withdrawText, listener);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -31,8 +30,6 @@ public class BankUI extends UITemplate {
 
 	@Override
 	public JPanel header(ActionListener listerner) {
-		// TODO Auto-generated method stub
-
 		JPanel panel = new JPanel();
 
 		JButton addPersonalAccount = new JButton("Add Personal Account");

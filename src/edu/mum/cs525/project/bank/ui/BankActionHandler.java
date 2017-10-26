@@ -19,20 +19,14 @@ import edu.mum.cs525.project.bank.BankAccountService;
 
 public class BankActionHandler implements ActionListener {
 
-	String accountnr, clientName, street, city, zip, state, accountType, clientType, amountDeposit, email;
-	boolean newaccount;
 	private DefaultTableModel model;
 	private JTable JTable1;
-	// BankFrm myframe;
-	private Object[] rowdata;
-	// private String[] rowdata;
 	
 	private BankAccountService accountService = (BankAccountService) ApplicationContext.getAccountService();
 
 	public BankActionHandler( JTable JTable1) {
 		this.model = (DefaultTableModel) JTable1.getModel();
 		this.JTable1 = JTable1;
-//		rowdata = new Object[8];
 		reloadAccounts();
 	}
 
@@ -141,9 +135,8 @@ public class BankActionHandler implements ActionListener {
 	}
 
 	void JButtonGetReport_actionPerformed(java.awt.event.ActionEvent event) {
-		System.out.println("Goooood");
-		JDialog_GetReport wd = new JDialog_GetReport(this);
-		wd.setBounds(430, 15, 275, 140);
+		JDialog_GetReport wd = new JDialog_GetReport();
+		wd.setBounds(430, 15, 300, 450);
 		wd.show();
 	}
 
@@ -196,6 +189,4 @@ public class BankActionHandler implements ActionListener {
 		cell[5] = acc.getBalance();
 		return cell;
 	}
-	
-
 }
