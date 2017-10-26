@@ -13,6 +13,7 @@ import edu.mum.cs525.framework.Account;
 import edu.mum.cs525.framework.Address;
 import edu.mum.cs525.framework.ApplicationContext;
 import edu.mum.cs525.framework.Customer;
+import edu.mum.cs525.framework.DeclinedException;
 import edu.mum.cs525.framework.Command.AddInterestCommand;
 import edu.mum.cs525.framework.Command.CommandsManager;
 import edu.mum.cs525.framework.Command.DepositCommand;
@@ -223,16 +224,20 @@ public class BankActionHandler implements ActionListener {
 			String samount = (String) model.getValueAt(selection, 5);
 			long currentamount = Long.parseLong(samount);
 			long newamount = currentamount - deposit;
-			model.setValueAt(String.valueOf(newamount), selection, 5);
-			if (newamount < 0) {
+			
+			
+			
+			WithdrawCommand wc = new WithdrawCommand(ApplicationContext.getAccountService(), accountnr, deposit);
+			CommandsManager.getInstance().setCommand(wc);
+			try {
+				CommandsManager.getInstance().invokeCommand();
+				model.setValueAt(String.valueOf(newamount), selection, 5);
+			} catch (DeclinedException e) {
 				JOptionPane.showMessageDialog(null,
 						" Account " + accnr + " : balance is negative: $" + String.valueOf(newamount) + " !",
 						"Warning: negative balance", JOptionPane.WARNING_MESSAGE);
 			}
 			
-			WithdrawCommand wc = new WithdrawCommand(ApplicationContext.getAccountService(), accountnr, deposit);
-			CommandsManager.getInstance().setCommand(wc);
-			CommandsManager.getInstance().invokeCommand();
 		}
 	}
 
