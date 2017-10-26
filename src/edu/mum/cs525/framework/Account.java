@@ -8,6 +8,7 @@ public class Account {
 	public static final String WITHDRAW = "withdraw";
 	public static final String DEPOSIT = "deposit";
 	public static final String ADD_INTEREST = "addInterest";
+	public static final String OVERDRAFT = "overdraft";
 	
 	private double balance;
 	private Customer customer;
@@ -17,6 +18,7 @@ public class Account {
 	private Transactionable withdrawAction;
 	private Interestable interestCalculator;
 	private CreditLimit creditLimit;
+	private String accountType;
 	
 	protected List<Transaction> transactions = new ArrayList<>();
 	
@@ -28,7 +30,12 @@ public class Account {
 		this.withdrawAction = factory.createWithdrawAction();
 		this.interestCalculator = factory.createInterestCalculator();
 		this.creditLimit = factory.createCreditLimit();
+		this.accountType = factory.getType();
 		init();
+	}
+	
+	public String getAccountType() {
+		return accountType;
 	}
 	
 	public double getBalance() {
@@ -63,6 +70,7 @@ public class Account {
 		double newBalance = balance + transaction.getAmount();
 		
 		if (checkLimit && !creditLimit.check(newBalance)) {
+			this.trigger(OVERDRAFT, transaction);
 			throw new DeclinedException("Transaction declined: " + transaction.getDescription() +
 					" Amount: " + transaction.getAmount());
 		}
@@ -84,12 +92,12 @@ public class Account {
 		return updateBalance(tx, true);
 	};
 	
-	public double computeInterest() {
+	public double computeInterest(double amount) {
 		return interestCalculator.compute(getBalance());
 	}
 	
 	public Transaction addInterest(String description) {
-		double interest = computeInterest();
+		double interest = computeInterest(getBalance());
 		if (interest < 0) {
 			return null;
 		}

@@ -9,6 +9,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import edu.mum.cs525.framework.Account;
+import edu.mum.cs525.framework.Address;
+import edu.mum.cs525.framework.ApplicationContext;
+import edu.mum.cs525.framework.Customer;
+import edu.mum.cs525.framework.Command.CommandsManager;
+import edu.mum.cs525.framework.Command.DepositCommand;
+import edu.mum.cs525.framework.Command.WithdrawCommand;
+import edu.mum.cs525.project.creditcard.CreditAccountService;
+
 public class BankActionHandler implements ActionListener {
 
 	String accountnr, clientName, street, city, zip, state, accountType, clientType, amountDeposit;
@@ -73,7 +82,42 @@ public class BankActionHandler implements ActionListener {
 			model.addRow(rowdata);
 			JTable1.getSelectionModel().setAnchorSelectionIndex(-1);
 			newaccount = false;
+			
+			System.out.println("accountType " + accountType);
+			// add new credit account:
+			CreditAccountService service = (CreditAccountService) ApplicationContext.getAccountService();
+			Customer cust = service.createPersonalCustomer();
+			Account acc = null;
+			if ("Gold" == accountType)
+			{
+				acc = service.createGoldAccount(accountnr, cust);
+			}
+			else if ("Silver" == accountType)
+			{
+				acc = service.createSilverAccount(accountnr, cust);
+			}
+			else if ("Bronze" == accountType)
+			{
+				acc = service.createBronzeAccount(accountnr, cust);
+			}
+			else
+			{
+				System.out.println("error");
+			}
+			acc.setAccountNumber(accountnr);
+			acc.setBalance(0);
+			Address address = new Address();
+			address.setCity(city);
+			address.setState(state);
+			address.setZip(zip);
+			address.setStreet(street);
+			cust.setAddress(address);
+			cust.setName(clientName);;
+			//cust.setEmail(email);
+			acc.setCustomer(cust);
 		}
+		
+		
 
 	}
 
@@ -119,6 +163,11 @@ public class BankActionHandler implements ActionListener {
 			long currentamount = Long.parseLong(samount);
 			long newamount = currentamount + deposit;
 			model.setValueAt(String.valueOf(newamount), selection, 5);
+			
+			// do real deposit
+			DepositCommand dc = new DepositCommand(ApplicationContext.getAccountService(), accountnr, deposit);
+			CommandsManager.getInstance().setCommand(dc);
+			CommandsManager.getInstance().invokeCommand();
 		}
 
 	}
@@ -145,6 +194,10 @@ public class BankActionHandler implements ActionListener {
 						" Account " + accnr + " : balance is negative: $" + String.valueOf(newamount) + " !",
 						"Warning: negative balance", JOptionPane.WARNING_MESSAGE);
 			}
+			
+			WithdrawCommand wc = new WithdrawCommand(ApplicationContext.getAccountService(), accountnr, deposit);
+			CommandsManager.getInstance().setCommand(wc);
+			CommandsManager.getInstance().invokeCommand();
 		}
 	}
 

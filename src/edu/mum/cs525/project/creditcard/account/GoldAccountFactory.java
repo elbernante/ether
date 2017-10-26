@@ -15,4 +15,9 @@ public class GoldAccountFactory extends CreditAccountFactory {
 		return new GoldCreditLimit();
 	}
 	
+	@Override
+	public String getType() {
+		return "GOLD";
+	}
+	
 }
