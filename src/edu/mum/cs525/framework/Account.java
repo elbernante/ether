@@ -8,6 +8,7 @@ public class Account {
 	public static final String WITHDRAW = "withdraw";
 	public static final String DEPOSIT = "deposit";
 	public static final String ADD_INTEREST = "addInterest";
+	public static final String OVERDRAFT = "overdraft";
 	
 	private double balance;
 	private Customer customer;
@@ -69,6 +70,7 @@ public class Account {
 		double newBalance = balance + transaction.getAmount();
 		
 		if (checkLimit && !creditLimit.check(newBalance)) {
+			this.trigger(OVERDRAFT, transaction);
 			throw new DeclinedException("Transaction declined: " + transaction.getDescription() +
 					" Amount: " + transaction.getAmount());
 		}

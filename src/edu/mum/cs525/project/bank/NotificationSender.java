@@ -32,6 +32,11 @@ public class NotificationSender {
 					" was withdrawan from account " + acc.getAccountNumber() + " on " + tx.getDate());	
 		}
 	}
+	
+	public void onOverdraft(Account acc, Transaction tx){
+		sendEmail(acc.getCustomer().getEmail(), "Insufficient funds! A withdrawal of $" + Math.abs(tx.getAmount()) +
+				" was attempted from account " + acc.getAccountNumber() + " on " + tx.getDate());
+	}
 
 	private void sendEmail(String emailAddress, String message) {
 		String emailMessage = "Sending email to: " + emailAddress + "\n" + "Message: " + message;
