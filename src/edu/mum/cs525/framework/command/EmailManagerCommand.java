@@ -1,4 +1,4 @@
-package edu.mum.cs525.framework.command;
+package edu.mum.cs525.framework.Command;
 
 import edu.mum.cs525.framework.util.EmailManager;
 
