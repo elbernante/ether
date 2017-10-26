@@ -82,21 +82,21 @@ public class JDialog_Deposit extends javax.swing.JDialog
 
 	void JButtonOK_actionPerformed(java.awt.event.ActionEvent event)
 	{
-		Double deposit = null;
+		Double depositAmount = null;
 		try {
-			deposit = Double.valueOf(JTextField_Deposit.getText());
+			depositAmount = Double.valueOf(JTextField_Deposit.getText());
 		} catch (NumberFormatException e) {
 			JOptionPane.showMessageDialog(null, "Invalid amount.");
 			return;
 		}
 		
-		if (deposit <= 0.) {
-			JOptionPane.showMessageDialog(null, "Deposit should be greater than 0.");
+		if (depositAmount <= 0.) {
+			JOptionPane.showMessageDialog(null, "Deposit amount should be greater than 0.");
 			return;
 		}
 		
 		if (null != callback) {
-			callback.accept(deposit);
+			callback.accept(depositAmount);
 		}
 		
 		dispose();

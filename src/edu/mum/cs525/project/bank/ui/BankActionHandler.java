@@ -123,28 +123,24 @@ public class BankActionHandler implements ActionListener {
 			String accnr = (String) model.getValueAt(selection, 0);
 
 			// Show the dialog for adding withdraw amount for the current mane
-			JDialog_Withdraw wd = new JDialog_Withdraw(accnr,this);
+			JDialog_Withdraw wd = new JDialog_Withdraw(accnr, withdrawAmount -> {
+				Account acc = accountService.getAccount(accnr);
+				if (null != acc) {
+					WithdrawCommand wc = new WithdrawCommand(accountService, acc.getAccountNumber(), withdrawAmount);
+					CommandsManager.getInstance().setCommand(wc);
+					try {
+						CommandsManager.getInstance().invokeCommand();
+						updateValueAtRow(selection, acc);
+					} catch (DeclinedException e) {
+						JOptionPane.showMessageDialog(null, 
+								"$" + withdrawAmount + " exceeds the current balance of $" + acc.getBalance(), 
+								"Insufficient Funds! ", 
+								JOptionPane.WARNING_MESSAGE);
+					}
+				}
+			});
 			wd.setBounds(430, 15, 275, 140);
 			wd.show();
-
-			// compute new amount
-			long deposit = Long.parseLong(amountDeposit);
-			String samount = (String) model.getValueAt(selection, 5);
-			long currentamount = Long.parseLong(samount);
-			long newamount = currentamount - deposit;
-			
-			
-			WithdrawCommand wc = new WithdrawCommand(ApplicationContext.getAccountService(), accountnr, deposit);
-			CommandsManager.getInstance().setCommand(wc);
-			try {
-				CommandsManager.getInstance().invokeCommand();
-				model.setValueAt(String.valueOf(newamount), selection, 5);
-			} catch (DeclinedException e) {
-				JOptionPane.showMessageDialog(null,
-						" Account " + accnr + " : balance is negative: $" + String.valueOf(newamount) + " !",
-						"Warning: negative balance", JOptionPane.WARNING_MESSAGE);
-			}
-			
 		}
 	}
 
