@@ -167,7 +167,9 @@ public class BankActionHandler implements ActionListener {
 			model.setValueAt(String.valueOf(newamount), selection, 5);
 			
 			// do real deposit
-	 
+			DepositCommand dc = new DepositCommand(ApplicationContext.getAccountService(), accountnr, deposit);
+			CommandsManager.getInstance().setCommand(dc);
+			CommandsManager.getInstance().invokeCommand();
 		}
 
 	}
