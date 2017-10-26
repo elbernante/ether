@@ -19,22 +19,21 @@ public class CreditCard {
 		AccountActivityMonitor.register(CreditNotificationSender.class);
 		// TODO: EmailManger factory
 		
-		
-		
-		
-		
 		// Usage
 		CreditAccountService service = (CreditAccountService) ApplicationContext.getAccountService();
 		
-		Customer cust = service.createBusinessCutomer();
-		Account acc = service.createGoldAccount("222", cust);
-		acc.deposit(450);
-		try {
-			acc.withdraw(20000034);
-		}
-		catch(DeclinedException de) {
-			System.out.println("DeclineException: " + de.getMessage());
-		}
+		Customer cust = service.createPersonalCustomer();
+		Account acc = service.createBronzeAccount("222", cust);
+		//try {
+			acc.withdraw(30000);
+			//acc.withdraw(30000);
+			//acc.withdraw(200000);
+			System.out.println("====balance: " + acc.getBalance());
+			//acc.withdraw(150000);
+		//}
+		//catch(DeclinedException de) {
+		//	System.out.println("DeclineException: " + de.getMessage());
+		//}
 
 		System.out.println(new CreditReportService().createReport(acc));
 		// TODO: Send appContext to UI
