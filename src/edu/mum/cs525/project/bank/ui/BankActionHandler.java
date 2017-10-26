@@ -22,7 +22,7 @@ import edu.mum.cs525.project.creditcard.CreditAccountService;
 
 public class BankActionHandler implements ActionListener {
 
-	String accountnr, clientName, street, city, zip, state, accountType, clientType, amountDeposit;
+	String accountnr, clientName, street, city, zip, state, accountType, clientType, amountDeposit, email;
 	boolean newaccount;
 	private DefaultTableModel model;
 	private JTable JTable1;
@@ -115,7 +115,7 @@ public class BankActionHandler implements ActionListener {
 			address.setStreet(street);
 			cust.setAddress(address);
 			cust.setName(clientName);;
-			//cust.setEmail(email);
+			cust.setEmail(email);
 			acc.setCustomer(cust);
 		}
 		
@@ -175,7 +175,7 @@ public class BankActionHandler implements ActionListener {
 			address.setStreet(street);
 			cust.setAddress(address);
 			cust.setName(clientName);;
-			//cust.setEmail(email);
+			cust.setEmail(email);
 			acc.setCustomer(cust);
 		}
 
