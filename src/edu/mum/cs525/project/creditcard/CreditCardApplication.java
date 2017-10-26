@@ -20,7 +20,7 @@ public class CreditCardApplication {
 		AccountActivityMonitor.register(CreditNotificationSender.class);
 		// TODO: EmailManger factory
 		
-		CreditUI.main(args);
+		CreditUI.load(args);
 		
 		// Usage
 //		CreditAccountService service = (CreditAccountService) ApplicationContext.getAccountService();

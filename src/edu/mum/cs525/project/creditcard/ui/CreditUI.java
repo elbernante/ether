@@ -27,7 +27,6 @@ public class CreditUI extends UITemplate {
 
 	@Override
 	public JPanel header(ActionListener listerner) {
-		// TODO Auto-generated method stub
 
 		JPanel panel = new JPanel();
 
@@ -43,7 +42,7 @@ public class CreditUI extends UITemplate {
 	}
 	
 	
-	public static void main(String[] args) {
+	public static void load(String[] args) {
 		
 		DefaultTableModel model = new DefaultTableModel();
         JTable JTable1 = new JTable(model);
@@ -52,11 +51,10 @@ public class CreditUI extends UITemplate {
         model.addColumn("Exp date");
         model.addColumn("Type");
         model.addColumn("Balance");
-//        rowdata = new Object[7];
 		
 		CreditActionHandler listener = new CreditActionHandler(JTable1);
         
-		CreditUI ui = new CreditUI(JTable1, "Credit System", "Charge", listener);
+		new CreditUI(JTable1, "Credit System", "Charge", listener);
 	}
 	
 	
