@@ -16,6 +16,7 @@ import edu.mum.cs525.framework.Customer;
 import edu.mum.cs525.framework.Command.CommandsManager;
 import edu.mum.cs525.framework.Command.DepositCommand;
 import edu.mum.cs525.framework.Command.WithdrawCommand;
+import edu.mum.cs525.project.bank.BankAccountService;
 import edu.mum.cs525.project.creditcard.CreditAccountService;
 
 public class BankActionHandler implements ActionListener {
@@ -85,25 +86,24 @@ public class BankActionHandler implements ActionListener {
 			
 			System.out.println("accountType " + accountType);
 			// add new credit account:
-			CreditAccountService service = (CreditAccountService) ApplicationContext.getAccountService();
+			BankAccountService service = (BankAccountService) ApplicationContext.getAccountService();
 			Customer cust = service.createPersonalCustomer();
 			Account acc = null;
-			if ("Gold" == accountType)
+			
+			if ("Checking" == accountType)
 			{
-				acc = service.createGoldAccount(accountnr, cust);
+				acc = service.createCheckingAccount(clientName, cust);
 			}
-			else if ("Silver" == accountType)
+			else if ("Saving" == accountType)
 			{
-				acc = service.createSilverAccount(accountnr, cust);
-			}
-			else if ("Bronze" == accountType)
-			{
-				acc = service.createBronzeAccount(accountnr, cust);
+				acc = service.createSavingsAccount(accountnr, cust);
 			}
 			else
 			{
 				System.out.println("error");
 			}
+			
+			
 			acc.setAccountNumber(accountnr);
 			acc.setBalance(0);
 			Address address = new Address();

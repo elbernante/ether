@@ -17,25 +17,9 @@ public class Bank {
 												  new CheckingAccountFactory());
 		ApplicationContext.setAccountService(BankAccountService.class);
 		AccountActivityMonitor.register(NotificationSender.class);
-		// TODO: EmailManger factory
 		
-//				BankUI.main(args);
+		BankUI.main(args);
 
-		
-//		
-		// Usage
-		BankAccountService service = (BankAccountService) ApplicationContext.getAccountService();
-//		
-		Customer cust = service.createBusinessCutomer();
-		cust.setEmail("business@email.com");
-		Account acc = service.createCheckingAccount("111", cust);
-		acc.deposit(450);
-		acc.withdraw(100);
-		
-		Account acc2 = service.createSavingsAccount("123", cust);
-		System.out.println(acc2.deposit(50).getAmount());
-//		
-//		// TODO: Send appContext to UI
 	}
 
 }
