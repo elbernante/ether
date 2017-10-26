@@ -9,13 +9,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import edu.mum.cs525.framework.Account;
-import edu.mum.cs525.framework.Address;
 import edu.mum.cs525.framework.ApplicationContext;
-import edu.mum.cs525.framework.Customer;
-import edu.mum.cs525.framework.Command.CommandsManager;
-import edu.mum.cs525.framework.Command.DepositCommand;
-import edu.mum.cs525.framework.Command.WithdrawCommand;
+import edu.mum.cs525.framework.command.CommandsManager;
+import edu.mum.cs525.framework.command.DepositCommand;
+import edu.mum.cs525.framework.command.WithdrawCommand;
+import edu.mum.cs525.framework.entity.Account;
+import edu.mum.cs525.framework.entity.Address;
+import edu.mum.cs525.framework.entity.Customer;
 import edu.mum.cs525.project.creditcard.CreditAccountService;
 
 public class CreditActionHandler implements ActionListener {

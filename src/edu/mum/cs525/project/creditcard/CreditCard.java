@@ -1,10 +1,10 @@
 package edu.mum.cs525.project.creditcard;
 
-import edu.mum.cs525.framework.Account;
-import edu.mum.cs525.framework.AccountActivityMonitor;
 import edu.mum.cs525.framework.ApplicationContext;
-import edu.mum.cs525.framework.Customer;
-import edu.mum.cs525.framework.DeclinedException;
+import edu.mum.cs525.framework.account.AccountActivityMonitor;
+import edu.mum.cs525.framework.entity.Account;
+import edu.mum.cs525.framework.entity.Customer;
+import edu.mum.cs525.framework.exceptions.DeclinedException;
 import edu.mum.cs525.project.ccard.ui.CreditUI;
 import edu.mum.cs525.project.creditcard.account.BronzeAccountFactory;
 import edu.mum.cs525.project.creditcard.account.GoldAccountFactory;

@@ -1,6 +1,6 @@
 package edu.mum.cs525.project.bank.account;
 
-import edu.mum.cs525.framework.Interestable;
+import edu.mum.cs525.framework.transaction.Interestable;
 
 public class SavingsInterest implements Interestable {
 

@@ -3,7 +3,7 @@ package edu.mum.cs525.project.bank.ui;
 import javax.swing.JDialog;
 import javax.swing.JTextArea;
 
-import edu.mum.cs525.project.bank.AccountsReportVisitor;
+import edu.mum.cs525.project.bank.reports.AccountsReportVisitor;
 
 
 public class JDialog_GetReport extends JDialog

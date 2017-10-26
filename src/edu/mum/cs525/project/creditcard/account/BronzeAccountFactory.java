@@ -1,7 +1,7 @@
 package edu.mum.cs525.project.creditcard.account;
 
-import edu.mum.cs525.framework.CreditLimit;
-import edu.mum.cs525.framework.Interestable;
+import edu.mum.cs525.framework.transaction.CreditLimit;
+import edu.mum.cs525.framework.transaction.Interestable;
 
 public class BronzeAccountFactory extends CreditAccountFactory {
 

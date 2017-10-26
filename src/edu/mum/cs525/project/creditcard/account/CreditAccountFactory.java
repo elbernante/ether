@@ -1,9 +1,9 @@
 package edu.mum.cs525.project.creditcard.account;
 
-import edu.mum.cs525.framework.AbstractAccountFactory;
-import edu.mum.cs525.framework.CreditAction;
-import edu.mum.cs525.framework.DebitAction;
-import edu.mum.cs525.framework.Transactionable;
+import edu.mum.cs525.framework.account.AbstractAccountFactory;
+import edu.mum.cs525.framework.transaction.CreditAction;
+import edu.mum.cs525.framework.transaction.DebitAction;
+import edu.mum.cs525.framework.transaction.Transactionable;
 
 public abstract class CreditAccountFactory implements AbstractAccountFactory  {
 

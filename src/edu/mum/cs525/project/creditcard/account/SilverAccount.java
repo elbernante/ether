@@ -1,8 +1,8 @@
 package edu.mum.cs525.project.creditcard.account;
 
-import edu.mum.cs525.framework.AbstractAccountFactory;
-import edu.mum.cs525.framework.Account;
-import edu.mum.cs525.project.creditcard.CreditAccountVisitor;
+import edu.mum.cs525.framework.account.AbstractAccountFactory;
+import edu.mum.cs525.framework.entity.Account;
+import edu.mum.cs525.project.creditcard.reports.CreditAccountVisitor;
 
 public class SilverAccount extends Account {
 

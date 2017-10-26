@@ -3,6 +3,11 @@ package edu.mum.cs525.framework;
 import java.util.HashMap;
 import java.util.Map;
 
+import edu.mum.cs525.framework.account.AbstractAccountFactory;
+import edu.mum.cs525.framework.account.AccountService;
+import edu.mum.cs525.framework.account.AccountServiceImpl;
+import edu.mum.cs525.framework.account.AccountServiceProxy;
+
 public class ApplicationContext {
 	
 	private volatile static ApplicationContext context;
@@ -19,8 +24,6 @@ public class ApplicationContext {
 	}
 	
 	private AccountService accountService = new AccountServiceImpl();
-
-	private ReportService reportService = new ReportServiceImpl();
 	
 	private Map<String, AbstractAccountFactory> accountFactories = new HashMap<>();
 	
@@ -49,9 +52,5 @@ public class ApplicationContext {
 
 	public static AccountService getAccountService() {
 		return getContext().accountService;
-	}
-
-	public static ReportService getReportService() {
-		return getContext().reportService;
 	}
 }

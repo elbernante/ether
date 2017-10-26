@@ -1,7 +1,7 @@
 package edu.mum.cs525.project.bank;
 
-import edu.mum.cs525.framework.AccountActivityMonitor;
 import edu.mum.cs525.framework.ApplicationContext;
+import edu.mum.cs525.framework.account.AccountActivityMonitor;
 import edu.mum.cs525.project.bank.account.CheckingAccountFactory;
 import edu.mum.cs525.project.bank.account.SavingsAccountFactory;
 import edu.mum.cs525.project.bank.ui.BankUI;

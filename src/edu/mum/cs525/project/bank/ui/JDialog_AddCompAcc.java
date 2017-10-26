@@ -1,10 +1,10 @@
 package edu.mum.cs525.project.bank.ui;
 import java.util.function.Consumer;
 
-import edu.mum.cs525.framework.Account;
-import edu.mum.cs525.framework.Address;
 import edu.mum.cs525.framework.ApplicationContext;
-import edu.mum.cs525.framework.BusinessCustomer;
+import edu.mum.cs525.framework.entity.Account;
+import edu.mum.cs525.framework.entity.Address;
+import edu.mum.cs525.framework.entity.BusinessCustomer;
 import edu.mum.cs525.project.bank.BankAccountService;
 
 

@@ -1,6 +1,6 @@
 package edu.mum.cs525.project.bank.account;
 
-import edu.mum.cs525.framework.CreditLimit;
+import edu.mum.cs525.framework.transaction.CreditLimit;
 
 public class BankingCreditLimit extends CreditLimit {
 	public BankingCreditLimit() {

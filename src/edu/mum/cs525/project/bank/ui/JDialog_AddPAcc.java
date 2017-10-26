@@ -4,11 +4,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.function.Consumer;
 
-import edu.mum.cs525.framework.Account;
-import edu.mum.cs525.framework.Address;
 import edu.mum.cs525.framework.ApplicationContext;
-import edu.mum.cs525.framework.Customer;
-import edu.mum.cs525.framework.PersonalCustomer;
+import edu.mum.cs525.framework.entity.Account;
+import edu.mum.cs525.framework.entity.Address;
+import edu.mum.cs525.framework.entity.Customer;
+import edu.mum.cs525.framework.entity.PersonalCustomer;
 import edu.mum.cs525.project.bank.BankAccountService;
 
 /*
