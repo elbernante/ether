@@ -148,7 +148,7 @@ public class BankActionHandler implements ActionListener {
 			System.out.println("accountType " + accountType);
 			// add new credit account:
 			BankAccountService service = (BankAccountService) ApplicationContext.getAccountService();
-			Customer cust = service.createPersonalCustomer();
+			Customer cust = service.createBusinessCutomer();
 			Account acc = null;
 			
 			
