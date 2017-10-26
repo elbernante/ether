@@ -2,6 +2,7 @@ package edu.mum.cs525.project.bank;
 
 import edu.mum.cs525.framework.Account;
 import edu.mum.cs525.framework.BusinessCustomer;
+import edu.mum.cs525.framework.PersonalCustomer;
 import edu.mum.cs525.framework.Transaction;
 import edu.mum.cs525.framework.Command.CommandsManager;
 import edu.mum.cs525.framework.Command.EmailManagerCommand;
@@ -18,6 +19,20 @@ public class NotificationSender {
 			+ " account " + acc.getAccountNumber() + " on " + tx.getDate());
 	}
 	
+	public void onDeposit(Account acc, PersonalCustomer pc, Transaction tx) {
+		if (tx.getAmount() > 500) {
+			sendEmail(pc.getEmail(), "Large Transaction Detected! $" + tx.getAmount() + 
+					" was credited to account " + acc.getAccountNumber() + " on " + tx.getDate());	
+		}
+	}
+	
+	public void onWithdraw(Account acc, PersonalCustomer pc, Transaction tx) {
+		if (tx.getAmount() < -500) {
+			sendEmail(pc.getEmail(), "Large Transaction Detected! $" + Math.abs(tx.getAmount()) + 
+					" was withdrawan from account " + acc.getAccountNumber() + " on " + tx.getDate());	
+		}
+	}
+
 	private void sendEmail(String emailAddress, String message) {
 		String emailMessage = "Sending email to: " + emailAddress + "\n" + "Message: " + message;
 		EmailManagerCommand emc = new EmailManagerCommand(emailMessage);
