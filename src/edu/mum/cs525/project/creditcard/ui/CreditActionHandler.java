@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -14,8 +13,7 @@ import edu.mum.cs525.framework.command.CommandsManager;
 import edu.mum.cs525.framework.command.DepositCommand;
 import edu.mum.cs525.framework.command.WithdrawCommand;
 import edu.mum.cs525.framework.entity.Account;
-import edu.mum.cs525.framework.entity.Address;
-import edu.mum.cs525.framework.entity.Customer;
+import edu.mum.cs525.framework.exceptions.DeclinedException;
 import edu.mum.cs525.project.creditcard.CreditAccountService;
 import edu.mum.cs525.project.creditcard.account.CreditAccount;
 
@@ -102,29 +100,27 @@ public class CreditActionHandler implements ActionListener {
 		// get selected name
 		int selection = JTable1.getSelectionModel().getMinSelectionIndex();
 		if (selection >= 0) {
-			String name = (String) model.getValueAt(selection, 0);
+			String ccNumber = (String) model.getValueAt(selection, 1);
 
 			// Show the dialog for adding withdraw amount for the current mane
-			JDialog_Withdraw wd = new JDialog_Withdraw(this, name);
+			JDialog_Withdraw wd = new JDialog_Withdraw(ccNumber, purchaseAmount -> {
+				CreditAccount acc = (CreditAccount) accountService.getAccount(ccNumber);
+				if (null != acc) {
+					WithdrawCommand wc = new WithdrawCommand(accountService, acc.getAccountNumber(), purchaseAmount);
+					CommandsManager.getInstance().setCommand(wc);
+					try {
+						CommandsManager.getInstance().invokeCommand();
+						updateValueAtRow(selection, acc);
+					} catch (DeclinedException e) {
+						JOptionPane.showMessageDialog(null, 
+								"New purchase of $" + purchaseAmount + " exceeds the credit limit of $" + acc.getCreditLimit(), 
+								"Credit Limit Exceeded! ", 
+								JOptionPane.ERROR_MESSAGE);
+					}
+				}
+			});
 			wd.setBounds(430, 15, 275, 140);
 			wd.show();
-
-			// compute new amount
-			long deposit = Long.parseLong(amountDeposit);
-			String samount = (String) model.getValueAt(selection, 4);
-			long currentamount = Long.parseLong(samount);
-			long newamount = currentamount - deposit;
-			model.setValueAt(String.valueOf(newamount), selection, 4);
-			if (newamount < 0) {
-				JOptionPane.showMessageDialog(null,
-						" " + name + " Your balance is negative: $" + String.valueOf(newamount) + " !",
-						"Warning: negative balance", JOptionPane.WARNING_MESSAGE);
-			}
-
-			// do real deposit
-			WithdrawCommand wc = new WithdrawCommand(ApplicationContext.getAccountService(), ccnumber, deposit);
-			CommandsManager.getInstance().setCommand(wc);
-			CommandsManager.getInstance().invokeCommand();
 		}
 
 	}

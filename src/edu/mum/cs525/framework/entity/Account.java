@@ -146,5 +146,9 @@ public abstract class Account {
 		return addInterest("Add Interest");
 	}
 	
+	public double getCreditLimit() {
+		return creditLimit.getMax();
+	}
+	
 	public void accept(Object object) { /* default no-op */ System.out.println("Syour accpet");}
 }

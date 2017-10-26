@@ -14,4 +14,12 @@ public abstract class CreditLimit {
 	public boolean check(double value) {
 		return value >= min && value <= max;
 	}
+	
+	public double getMax() {
+		return max;
+	}
+	
+	public double getMin() {
+		return min;
+	}
 }

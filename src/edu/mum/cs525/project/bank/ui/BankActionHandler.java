@@ -125,7 +125,7 @@ public class BankActionHandler implements ActionListener {
 						JOptionPane.showMessageDialog(null, 
 								"$" + withdrawAmount + " exceeds the current balance of $" + acc.getBalance(), 
 								"Insufficient Funds! ", 
-								JOptionPane.WARNING_MESSAGE);
+								JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			});
