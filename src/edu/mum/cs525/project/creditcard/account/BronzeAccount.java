@@ -10,8 +10,8 @@ public class BronzeAccount extends Account {
 		super(factory);
 	}
 	
-	public void accept(CreditAccountVisitor visitor) {
-		visitor.visit(this);
+	@Override
+	public void accept(Object visitor) {
+		((CreditAccountVisitor) visitor).visit(this);
 	}
-
 }
