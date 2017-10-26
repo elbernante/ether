@@ -7,7 +7,7 @@ import edu.mum.cs525.project.bank.account.SavingsAccountFactory;
 import edu.mum.cs525.project.bank.ui.BankUI;
 
 
-public class Bank {
+public class BankApplication {
 	
 	public static void main(String[] args) {
 		// Configuration

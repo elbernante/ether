@@ -1,4 +1,4 @@
-package edu.mum.cs525.project.ccard.ui;
+package edu.mum.cs525.project.creditcard.ui;
 
 import java.awt.BorderLayout;
 
