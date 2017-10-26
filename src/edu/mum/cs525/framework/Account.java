@@ -136,4 +136,6 @@ public abstract class Account {
 	public Transaction addInterest() {
 		return addInterest("Add Interest");
 	}
+	
+	public void accept(Object object) { /* default no-op */}
 }

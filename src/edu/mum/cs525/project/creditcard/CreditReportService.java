@@ -17,7 +17,9 @@ public class CreditReportService {
         }
 
         double newBalance = previousBalance + totalCredits + totalPayments + account.computeInterest(previousBalance + totalCredits);
-        double totalDue = MinimumPaymentCalculator.compute(account, newBalance);
+        MinimumPaymentVisitor mpv = new MinimumPaymentVisitor(newBalance);
+        account.accept(mpv);
+        double totalDue = mpv.getMininumPayment();
         return new CreditAccountReport(previousBalance, totalPayments, totalCredits, newBalance, totalDue);
     }
 }
