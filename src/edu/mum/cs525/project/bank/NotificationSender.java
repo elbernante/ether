@@ -2,32 +2,26 @@ package edu.mum.cs525.project.bank;
 
 import edu.mum.cs525.framework.Account;
 import edu.mum.cs525.framework.BusinessCustomer;
-import edu.mum.cs525.framework.Customer;
-import edu.mum.cs525.framework.PersonalCustomer;
 import edu.mum.cs525.framework.Transaction;
+import edu.mum.cs525.framework.Command.CommandsManager;
+import edu.mum.cs525.framework.Command.EmailManagerCommand;
 
 public class NotificationSender {
 	
-	// TODO: Delegate message sending to Email
-	// TODO: Implement logic for criteria for sending email
-	
-	public void onDeposit(Account acc) {
-		System.out.println("Dopsiting");
+	public void onDeposit(Account acc, BusinessCustomer bc, Transaction tx) {
+		sendEmail(bc.getEmail(), "$" + tx.getAmount() + " was credited to business " + acc.getAccountType()
+		+ " account " + acc.getAccountNumber() + " on " + tx.getDate());
 	}
 	
-	public void onWithdraw(Transaction tx, BusinessCustomer bc, Account acc) {
-		System.out.println("Withdrawing Business");
-		
-		System.out.println("   BALANCE: " + acc.getBalance());
+	public void onWithdraw(Account acc, BusinessCustomer bc, Transaction tx) {
+		sendEmail(bc.getEmail(), "$" + Math.abs(tx.getAmount()) + " was withrawn from business " + acc.getAccountType()
+			+ " account " + acc.getAccountNumber() + " on " + tx.getDate());
 	}
 	
-	public void onWithdraw(PersonalCustomer pc) {
-		System.out.println("Withdrawing Personal");
-	}
-	
-	public void onWithdraw(Account acc, Customer pc, Transaction tx) {
-		System.out.println("Withdrawing generic");
-		System.out.println("   Withrawn:" + tx.getAmount());
-		System.out.println("   New balance:" + acc.getBalance());
+	private void sendEmail(String emailAddress, String message) {
+		String emailMessage = "Sending email to: " + emailAddress + "\n" + "Message: " + message;
+		EmailManagerCommand emc = new EmailManagerCommand(emailMessage);
+	    CommandsManager.getInstance().setCommand(emc);
+	    CommandsManager.getInstance().invokeCommand();
 	}
 }
