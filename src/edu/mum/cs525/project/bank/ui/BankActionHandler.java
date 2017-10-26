@@ -144,6 +144,39 @@ public class BankActionHandler implements ActionListener {
 			model.addRow(rowdata);
 			JTable1.getSelectionModel().setAnchorSelectionIndex(-1);
 			newaccount = false;
+			
+			System.out.println("accountType " + accountType);
+			// add new credit account:
+			BankAccountService service = (BankAccountService) ApplicationContext.getAccountService();
+			Customer cust = service.createPersonalCustomer();
+			Account acc = null;
+			
+			
+			if ("Ch" == accountType)
+			{
+				acc = service.createCheckingAccount(accountnr, cust);
+			}
+			else if ("S" == accountType)
+			{
+				acc = service.createSavingsAccount(accountnr, cust);
+			}
+			else
+			{
+				System.out.println("error");
+			}
+			
+			
+			acc.setAccountNumber(accountnr);
+			acc.setBalance(0);
+			Address address = new Address();
+			address.setCity(city);
+			address.setState(state);
+			address.setZip(zip);
+			address.setStreet(street);
+			cust.setAddress(address);
+			cust.setName(clientName);;
+			//cust.setEmail(email);
+			acc.setCustomer(cust);
 		}
 
 	}
