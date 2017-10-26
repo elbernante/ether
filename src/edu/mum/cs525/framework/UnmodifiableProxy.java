@@ -3,7 +3,7 @@ package edu.mum.cs525.framework;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
 
-public class UndomifiableProxy {
+public class UnmodifiableProxy {
 
 	public static Object createProxy(Object target) {
 		Enhancer enhancer = new Enhancer();

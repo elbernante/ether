@@ -84,7 +84,7 @@ public abstract class Account {
 		
 		balance = newBalance;
 		transactions.add(transaction);
-		return (Transaction) UndomifiableProxy.createProxy(transaction);
+		return (Transaction) UnmodifiableProxy.createProxy(transaction);
 	}
 	
 	public void init() { /* hook */ }
