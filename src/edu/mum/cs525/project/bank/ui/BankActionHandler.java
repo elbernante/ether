@@ -9,10 +9,10 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import edu.mum.cs525.framework.ApplicationContext;
-import edu.mum.cs525.framework.Command.AddInterestCommand;
-import edu.mum.cs525.framework.Command.CommandsManager;
-import edu.mum.cs525.framework.Command.DepositCommand;
-import edu.mum.cs525.framework.Command.WithdrawCommand;
+import edu.mum.cs525.framework.command.AddInterestCommand;
+import edu.mum.cs525.framework.command.CommandsManager;
+import edu.mum.cs525.framework.command.DepositCommand;
+import edu.mum.cs525.framework.command.WithdrawCommand;
 import edu.mum.cs525.framework.entity.Account;
 import edu.mum.cs525.framework.exceptions.DeclinedException;
 import edu.mum.cs525.project.bank.BankAccountService;

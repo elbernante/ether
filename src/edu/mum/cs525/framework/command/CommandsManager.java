@@ -1,4 +1,4 @@
-package edu.mum.cs525.framework.Command;
+package edu.mum.cs525.framework.command;
 
 
 public class CommandsManager implements InvokerCommand {

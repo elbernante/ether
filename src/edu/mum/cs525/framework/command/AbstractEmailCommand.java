@@ -1,4 +1,4 @@
-package edu.mum.cs525.framework.Command;
+package edu.mum.cs525.framework.command;
 
 public abstract class AbstractEmailCommand implements Command{
 	

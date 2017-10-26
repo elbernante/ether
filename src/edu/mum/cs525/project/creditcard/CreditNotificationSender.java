@@ -1,7 +1,7 @@
 package edu.mum.cs525.project.creditcard;
 
-import edu.mum.cs525.framework.Command.CommandsManager;
-import edu.mum.cs525.framework.Command.EmailManagerCommand;
+import edu.mum.cs525.framework.command.CommandsManager;
+import edu.mum.cs525.framework.command.EmailManagerCommand;
 import edu.mum.cs525.framework.entity.Account;
 import edu.mum.cs525.framework.entity.BusinessCustomer;
 import edu.mum.cs525.framework.entity.PersonalCustomer;

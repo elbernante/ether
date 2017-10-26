@@ -1,4 +1,4 @@
-package edu.mum.cs525.framework.Command;
+package edu.mum.cs525.framework.command;
 
 import edu.mum.cs525.framework.account.AccountService;
 
