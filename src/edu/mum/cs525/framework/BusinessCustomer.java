@@ -10,4 +10,9 @@ public class BusinessCustomer extends Customer {
 	public void setNumberOfEmployees(int numberOfEmployees) {
 		this.numberOfEmployees = numberOfEmployees;
 	}
+	
+	@Override
+	public String getCustomerTypeName() {
+		return "BUSINESS";
+	}
 }

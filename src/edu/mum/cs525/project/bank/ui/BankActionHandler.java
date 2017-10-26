@@ -30,11 +30,14 @@ public class BankActionHandler implements ActionListener {
 	// BankFrm myframe;
 	private Object[] rowdata;
 	// private String[] rowdata;
+	
+	private BankAccountService accountService = (BankAccountService) ApplicationContext.getAccountService();
 
 	public BankActionHandler( JTable JTable1) {
 		this.model = (DefaultTableModel) JTable1.getModel();
 		this.JTable1 = JTable1;
-		rowdata = new Object[8];
+//		rowdata = new Object[8];
+		loadAccounts();
 	}
 
 	@Override
@@ -70,58 +73,12 @@ public class BankActionHandler implements ActionListener {
 		 * it
 		 */
 
-		JDialog_AddPAcc pac = new JDialog_AddPAcc(this);
+		JDialog_AddPAcc pac = new JDialog_AddPAcc(acc -> {
+			insertAccountToTable(acc);
+		});
+		
 		pac.setBounds(450, 20, 300, 330);
 		pac.show();
-
-		if (newaccount) {
-			// add row to table
-			rowdata[0] = accountnr;
-			rowdata[1] = clientName;
-			rowdata[2] = city;
-			rowdata[3] = "P";
-			rowdata[4] = accountType;
-			rowdata[5] = "0";
-			model.addRow(rowdata);
-			JTable1.getSelectionModel().setAnchorSelectionIndex(-1);
-			newaccount = false;
-			
-			System.out.println("accountType " + accountType);
-			// add new credit account:
-			BankAccountService service = (BankAccountService) ApplicationContext.getAccountService();
-			Customer cust = service.createPersonalCustomer();
-			Account acc = null;
-			
-			
-			if ("Ch" == accountType)
-			{
-				acc = service.createCheckingAccount(accountnr, cust);
-			}
-			else if ("S" == accountType)
-			{
-				acc = service.createSavingsAccount(accountnr, cust);
-			}
-			else
-			{
-				System.out.println("error");
-			}
-			
-			
-			acc.setAccountNumber(accountnr);
-			acc.setBalance(0);
-			Address address = new Address();
-			address.setCity(city);
-			address.setState(state);
-			address.setZip(zip);
-			address.setStreet(street);
-			cust.setAddress(address);
-			cust.setName(clientName);;
-			cust.setEmail(email);
-			acc.setCustomer(cust);
-		}
-		
-		
-
 	}
 
 	void JButtonCompAC_actionPerformed(java.awt.event.ActionEvent event) {
@@ -130,56 +87,11 @@ public class BankActionHandler implements ActionListener {
 		 * show it
 		 */
 
-		JDialog_AddCompAcc pac = new JDialog_AddCompAcc(this);
+		JDialog_AddCompAcc pac = new JDialog_AddCompAcc(acc -> {
+			insertAccountToTable(acc);
+		});
 		pac.setBounds(450, 20, 300, 330);
 		pac.show();
-
-		if (newaccount) {
-			// add row to table
-			rowdata[0] = accountnr;
-			rowdata[1] = clientName;
-			rowdata[2] = city;
-			rowdata[3] = "C";
-			rowdata[4] = accountType;
-			rowdata[5] = "0";
-			model.addRow(rowdata);
-			JTable1.getSelectionModel().setAnchorSelectionIndex(-1);
-			newaccount = false;
-			
-			System.out.println("accountType " + accountType);
-			// add new credit account:
-			BankAccountService service = (BankAccountService) ApplicationContext.getAccountService();
-			Customer cust = service.createBusinessCutomer();
-			Account acc = null;
-			
-			
-			if ("Ch" == accountType)
-			{
-				acc = service.createCheckingAccount(accountnr, cust);
-			}
-			else if ("S" == accountType)
-			{
-				acc = service.createSavingsAccount(accountnr, cust);
-			}
-			else
-			{
-				System.out.println("error");
-			}
-			
-			
-			acc.setAccountNumber(accountnr);
-			acc.setBalance(0);
-			Address address = new Address();
-			address.setCity(city);
-			address.setState(state);
-			address.setZip(zip);
-			address.setStreet(street);
-			cust.setAddress(address);
-			cust.setName(clientName);;
-			cust.setEmail(email);
-			acc.setCustomer(cust);
-		}
-
 	}
 
 	void JButtonDeposit_actionPerformed(java.awt.event.ActionEvent event) {
@@ -226,7 +138,6 @@ public class BankActionHandler implements ActionListener {
 			long newamount = currentamount - deposit;
 			
 			
-			
 			WithdrawCommand wc = new WithdrawCommand(ApplicationContext.getAccountService(), accountnr, deposit);
 			CommandsManager.getInstance().setCommand(wc);
 			try {
@@ -258,5 +169,34 @@ public class BankActionHandler implements ActionListener {
 				JOptionPane.WARNING_MESSAGE);
 
 	}
+	
+	private void clearTable() {
+		while (model.getRowCount() > 0) {
+			model.removeRow(0);
+		}
+	}
+	
+	private void loadAccounts() {
+		clearTable();
+		for (Account acc : accountService.getAllAccounts()) {
+			insertAccountToTable(acc);
+		}
+	}
+	
+	private void insertAccountToTable(Account acc) {
+		model.addRow(accountToObjectArray(acc));
+	}
+	
+	private Object[] accountToObjectArray(Account acc) {
+		Object [] cell = new Object[6];
+		cell[0] = acc.getAccountNumber();
+		cell[1] = acc.getCustomer().getName();
+		cell[2] = acc.getCustomer().getAddress().getCity();
+		cell[3] = acc.getCustomer().getCustomerTypeName();
+		cell[4] = acc.getAccountType();
+		cell[5] = acc.getBalance();
+		return cell;
+	}
+	
 
 }

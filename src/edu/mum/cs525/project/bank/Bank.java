@@ -1,12 +1,10 @@
 package edu.mum.cs525.project.bank;
 
-import edu.mum.cs525.framework.Account;
 import edu.mum.cs525.framework.AccountActivityMonitor;
 import edu.mum.cs525.framework.ApplicationContext;
-import edu.mum.cs525.framework.Customer;
-import edu.mum.cs525.project.bank.ui.BankUI;
 import edu.mum.cs525.project.bank.account.CheckingAccountFactory;
 import edu.mum.cs525.project.bank.account.SavingsAccountFactory;
+import edu.mum.cs525.project.bank.ui.BankUI;
 
 
 public class Bank {
@@ -18,8 +16,8 @@ public class Bank {
 		ApplicationContext.setAccountService(BankAccountService.class);
 		AccountActivityMonitor.register(NotificationSender.class);
 		
-		BankUI.main(args);
-
+		// Launch GUI
+		BankUI.load(args);
 	}
 
 }

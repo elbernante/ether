@@ -23,5 +23,7 @@ public abstract class Customer {
 	}
 	public void setAddress(Address address) {
 		this.address = address;
-	}	
+	}
+	
+	public abstract String getCustomerTypeName();
 }

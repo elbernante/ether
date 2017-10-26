@@ -52,7 +52,7 @@ public class BankUI extends UITemplate {
 		return panel;
 	}
 
-	public static void main(String[] args) {
+	public static void load(String[] args) {
 
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -64,15 +64,14 @@ public class BankUI extends UITemplate {
 		model.addColumn("AccountNr");
 		model.addColumn("Name");
 		model.addColumn("City");
-		model.addColumn("P/C");
-		model.addColumn("Ch/S");
+		model.addColumn("Customer Type");
+		model.addColumn("Account Type");
 		model.addColumn("Amount");
 		table.setModel(model);
 
 		BankActionHandler a = new BankActionHandler(table);
 
-		BankUI ui = new BankUI(table, "Banking", "Withdraw", a);
-
+		new BankUI(table, "Banking", "Withdraw", a);
 	}
 
 }
